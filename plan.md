@@ -15,14 +15,14 @@
 
 입력: `_설정` 시트의 `[{항목, 값}]` 행 배열 또는 `undefined`.
 
-- [ ] shouldReturnDefaultsWhenSettingsMissing (F3-4): `undefined` → `{ storeName: '메뉴판', theme: 'cafe-dark', autoRotateSec: 0 }`
-- [ ] shouldReadStoreName (F3-1)
-- [ ] shouldFallbackStoreNameWhenBlank (F3-4)
-- [ ] shouldReadKnownTheme (F3-2): `bistro-light`
-- [ ] shouldFallbackToDefaultThemeWhenUnknown (F3-2)
-- [ ] shouldReadAutoRotateSec (F3-3)
-- [ ] shouldFallbackAutoRotateWhenNegativeOrNotInteger (F3-3)
-- [ ] shouldFallbackAutoRotateWhenNotNumber (F3-3)
+- [x] shouldReturnDefaultsWhenSettingsMissing (F3-4): `undefined` → `{ storeName: '메뉴판', theme: 'cafe-dark', autoRotateSec: 0 }`
+- [x] shouldReadStoreName (F3-1)
+- [x] shouldFallbackStoreNameWhenBlank (F3-4)
+- [x] shouldReadKnownTheme (F3-2): `bistro-light`
+- [x] shouldFallbackToDefaultThemeWhenUnknown (F3-2)
+- [x] shouldReadAutoRotateSec (F3-3)
+- [x] shouldFallbackAutoRotateWhenNegativeOrNotInteger (F3-3)
+- [x] shouldFallbackAutoRotateWhenNotNumber (F3-3)
 
 ## 2. parseWorkbook (`src/parseWorkbook.mjs`, `test/parseWorkbook.test.mjs`)
 

@@ -51,7 +51,7 @@
 | ID | 마일스톤 | 테스트 항목 | 상태 |
 |---|---|---|---|
 | M0 | 프로젝트 셋업 | SETUP 2 | `[x]` |
-| M1 | parseSettings | T-01-01 ~ 08 | `[ ]` |
+| M1 | parseSettings | T-01-01 ~ 08 | `[x]` |
 | M2 | parseWorkbook | T-02-01 ~ 16 | `[ ]` |
 | M3 | render | T-03-01 ~ 10 | `[ ]` |
 | M4 | watcher 디바운스 | T-04-01 ~ 05 | `[ ]` |
@@ -73,7 +73,7 @@
 
 ---
 
-## [ ] M1 parseSettings
+## [x] M1 parseSettings
 
 파일: `src/parseSettings.mjs`, `test/parseSettings.test.mjs`
 입력: `_설정` 시트의 `[{ 항목, 값 }]` 행 배열 또는 `undefined`. 출력: `{ storeName, theme, autoRotateSec }`.
