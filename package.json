@@ -1,0 +1,19 @@
+{
+  "name": "exer-manupan",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "엑셀 시트를 연동한 카페 메뉴판 - SSE, 스킨테마변경 지원",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "express": "^4.21.2",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  }
+}
