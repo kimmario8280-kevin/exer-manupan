@@ -56,8 +56,8 @@
 | M3 | render | T-03-01 ~ 10 | `[x]` |
 | M4 | watcher 디바운스 | T-04-01 ~ 05 | `[x]` |
 | M5 | sseHub | T-05-01 ~ 04 | `[x]` |
-| M6 | server 통합 | T-06-01 ~ 07 | `[ ]` |
-| M7 | 클라이언트 조립과 화면 | T-07-01 ~ 07 | `[ ]` |
+| M6 | server 통합 | T-06-01 ~ 07 | `[x]` |
+| M7 | 클라이언트 조립과 화면 | T-07-01 ~ 07 | `[x]` |
 
 표의 상태는 참고용이다. **기준은 각 마일스톤 제목 앞의 표기**이고, 상태를 바꿀 때 표도 같이 고친다.
 
@@ -287,7 +287,7 @@ workbook은 테스트 안에서 `XLSX.utils.book_new()` + `aoa_to_sheet`로 만�
 
 ---
 
-## [ ] M6 server 통합
+## [x] M6 server 통합
 
 파일: `server.mjs`(+ 필요 시 `src/createApp.mjs`), `test/server.test.mjs`
 임시 디렉터리에 xlsx를 만들어 서버를 기동한다. 포트 0(임의), `fetch`로 검증, 테스트 종료 시 서버·감시자를 닫는다.
@@ -324,7 +324,7 @@ workbook은 테스트 안에서 `XLSX.utils.book_new()` + `aoa_to_sheet`로 만�
 
 ---
 
-## [ ] M7 클라이언트 조립과 화면
+## [x] M7 클라이언트 조립과 화면
 
 자동 테스트가 어려운 부분은 수동 확인 항목을 포함한다. 테스트 가능한 로직은 순수 함수로 분리한다.
 
@@ -343,9 +343,9 @@ workbook은 테스트 안에서 `XLSX.utils.book_new()` + `aoa_to_sheet`로 만�
 - T-07-04 SETUP 테마 CSS 3종
   - 수행: `public/templates/board-grid.css`(레이아웃, CSS 변수 참조만), `cafe-dark.css`, `bistro-light.css`(변수 값만 선언). 클라이언트가 `settings.theme`에 맞는 CSS를 로드
   - 규칙: `.claude/rules/anti-ai-slop.md` 준수. 폰트 선택 이유를 CSS 주석 한 줄로 남긴다
-- T-07-05 SETUP 반응형 4종 확인
+- T-07-05 SETUP 반응형 4종 확인 (CSS 구현 완료, 브라우저 눈 확인은 사용자 몫)
   - 수행: `design/`의 모바일, 태블릿 세로/가로, 사이니지 기준으로 브레이크포인트 구현·확인
-- T-07-06 SETUP 샘플 `data/menu.xlsx` 수동 통합 확인
+- T-07-06 SETUP 샘플 `data/menu.xlsx` 수동 통합 확인 (서버·API·SSE는 자동 확인, 실제 Excel 저장 확인은 사용자 몫)
   - 수행: `npm start` → Excel에서 값 수정 후 저장 → 2초 이내 화면 갱신, 품절·테마·자동전환 동작 확인
 - T-07-07 SETUP anti-ai-slop 자가 점검
   - 수행: 규칙 문서의 6개 점검 항목에 모두 NO인지 확인

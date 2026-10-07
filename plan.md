@@ -83,23 +83,23 @@ workbook은 테스트 안에서 `XLSX.utils.aoa_to_sheet`로 만든다. 실제 `
 
 임시 디렉터리에 xlsx를 만들어 서버를 기동하고 `fetch`로 검증한다. 포트는 0(임의)을 쓴다.
 
-- [ ] shouldServeParsedMenuAtApiMenu (F1, F3)
-- [ ] shouldServeIndexHtmlAtRoot
-- [ ] shouldOpenSseStreamWithEventStreamHeaders (TRD 4장)
-- [ ] shouldPushMenuUpdatedAndServeNewDataAfterFileReplaced (F4-2, F4-3)
-- [ ] shouldKeepPreviousDataWhenReparseFails (F4-5): 손상 파일로 교체해도 `/api/menu`가 이전 값을 반환, 브로드캐스트 없음
-- [ ] shouldStartWithEmptyPagesWhenFileMissingAtBoot (TRD 9장)
-- [ ] shouldReadPortFromEnv (TRD 5장)
+- [x] shouldServeParsedMenuAtApiMenu (F1, F3)
+- [x] shouldServeIndexHtmlAtRoot
+- [x] shouldOpenSseStreamWithEventStreamHeaders (TRD 4장)
+- [x] shouldPushMenuUpdatedAndServeNewDataAfterFileReplaced (F4-2, F4-3)
+- [x] shouldKeepPreviousDataWhenReparseFails (F4-5): 손상 파일로 교체해도 `/api/menu`가 이전 값을 반환, 브로드캐스트 없음
+- [x] shouldStartWithEmptyPagesWhenFileMissingAtBoot (TRD 9장)
+- [x] shouldReadPortFromEnv (TRD 5장)
 
 ## 7. 클라이언트 조립과 화면 (자동 테스트 한계가 있어 수동 확인 포함)
 
-- [ ] `public/index.html`, `public/client.js` 작성: 로드 시 fetch → render, `EventSource`로 갱신 (F4-3)
-- [ ] 사용자 텍스트를 `textContent`/이스케이프로만 삽입함을 render 테스트로 보장 (TRD 6장)
-- [ ] 자동전환 타이머 로직을 순수 함수로 분리하고 테스트: shouldAdvanceToNextPageEveryNSeconds, shouldNotRotateWhenZero (F3-3)
-- [ ] `board-grid.css` + `cafe-dark.css` + `bistro-light.css` 작성 (F3-2, F5)
+- [x] `public/index.html`, `public/client.js` 작성: 로드 시 fetch → render, `EventSource`로 갱신 (F4-3)
+- [x] 사용자 텍스트를 `textContent`/이스케이프로만 삽입함을 render 테스트로 보장 (TRD 6장)
+- [x] 자동전환 타이머 로직을 순수 함수로 분리하고 테스트: shouldAdvanceToNextPageEveryNSeconds, shouldNotRotateWhenZero (F3-3)
+- [x] `board-grid.css` + `cafe-dark.css` + `bistro-light.css` 작성 (F3-2, F5)
 - [ ] 반응형 4종(모바일·태블릿 세로/가로·사이니지) 확인, `design/` 기준 (F5-2)
 - [ ] 샘플 `data/menu.xlsx`로 실제 저장 → 2초 내 갱신 수동 확인 (PRD 6장)
-- [ ] anti-ai-slop 자가 점검 6항목 통과
+- [x] anti-ai-slop 자가 점검 6항목 통과
 
 ## 완료 기준
 
