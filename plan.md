@@ -111,6 +111,13 @@ M7의 CSS 유동 레이아웃은 `design/project/`의 PNG 배경·프레임을 �
 - [x] shouldHaveAssetFilesForEveryThemeAndDevice (F5-2)
 - [x] 화면 조립: 배경·프레임 레이어, 기기 판별, 아트보드 contain 레이아웃, 테마 색 교체
 
+## 9. 기기 선택 버튼 (`public/design.js`, `public/render.js`)
+
+- [x] shouldListDeviceButtonsInOrder (F5-2)
+- [x] shouldPreferSelectedDeviceOverViewport (F5-2)
+- [x] shouldRenderDeviceButtonsWithActiveOne (F5-2)
+- [x] 화면 조립: 상단 기기 버튼 줄, 클릭 시 크기 변경, headless 스크린샷 확인
+
 ## 완료 기준
 
 - 위 항목이 모두 체크되었다.

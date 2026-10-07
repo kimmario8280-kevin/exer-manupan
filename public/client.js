@@ -1,7 +1,8 @@
-import { DEVICES, assetUrls, deviceFor } from './design.js';
-import { renderItems, renderTabs, resolveActivePage } from './render.js';
+import { DEVICES, assetUrls, resolveDevice } from './design.js';
+import { renderDeviceButtons, renderItems, renderTabs, resolveActivePage } from './render.js';
 import { nextPageName, rotationIntervalMs } from './rotation.js';
 
+const deviceBarEl = document.getElementById('device-bar');
 const boardEl = document.getElementById('board');
 const bgLayerEl = document.getElementById('layer-bg');
 const frameLayerEl = document.getElementById('layer-frame');
@@ -13,11 +14,13 @@ const emptyEl = document.getElementById('empty');
 
 let menu = { settings: {}, pages: [] };
 let activePage = null;
+let selectedDevice = null; // 버튼으로 고른 기기. null이면 창 크기로 자동 판별한다.
 let rotationTimer = null;
 
-// 화면 크기에 맞는 기기를 골라 아트보드 비율과 배경·프레임 PNG를 적용한다.
+// 고른 기기(없으면 창 크기로 판별한 기기)의 아트보드 비율과 배경·프레임 PNG를 적용한다.
 function drawBoard(theme) {
-  const device = deviceFor(window.innerWidth, window.innerHeight);
+  const device = resolveDevice(selectedDevice, window.innerWidth, window.innerHeight);
+  deviceBarEl.innerHTML = renderDeviceButtons(device);
   const { width, height } = DEVICES[device];
   const { bg, frame } = assetUrls(theme, device);
   boardEl.dataset.device = device;
@@ -76,6 +79,13 @@ tabsEl.addEventListener('click', (event) => {
   activePage = tab.textContent;
   draw();
   restartRotation();
+});
+
+deviceBarEl.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-device]');
+  if (!button) return;
+  selectedDevice = button.dataset.device;
+  drawBoard(menu.settings.theme);
 });
 
 window.addEventListener('resize', () => {

@@ -25,3 +25,16 @@ export function assetUrls(theme, device) {
     frame: `${ASSET_DIR}/${theme}/frame-${device}.png`,
   };
 }
+
+// 기기 선택 버튼의 순서와 이름. 키 순서가 버튼 순서다.
+export const DEVICE_LABELS = Object.freeze({
+  signage: '사이니지 (세로)',
+  'tablet-land': '태블릿 (가로)',
+  'tablet-port': '태블릿 (세로)',
+  mobile: '모바일',
+});
+
+// 사용자가 고른 기기가 있으면 그것을, 없거나 알 수 없는 값이면 창 크기로 판별한 기기를 쓴다.
+export function resolveDevice(selected, width, height) {
+  return Object.hasOwn(DEVICES, selected) ? selected : deviceFor(width, height);
+}

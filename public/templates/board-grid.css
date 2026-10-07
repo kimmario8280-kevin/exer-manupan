@@ -25,13 +25,57 @@ body {
 }
 
 .stage {
+  --toolbar-height: 56px;
+
   display: grid;
-  place-items: center;
+  grid-template-rows: var(--toolbar-height) 1fr;
+  justify-items: center;
+  align-items: center;
   min-height: 100vh;
 }
 
+/* 기기 크기 선택 버튼 줄 */
+.device-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  padding: 0 16px;
+  overflow-x: auto;
+}
+
+.device-button {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: none;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.device-button.active {
+  border-color: var(--accent);
+  color: var(--fg);
+}
+
+.device-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .device-button {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+}
+
 .board {
-  --board-width: min(100vw, calc(100vh * var(--ratio)));
+  --board-width: min(100vw, calc((100vh - var(--toolbar-height)) * var(--ratio)));
   --u: min(var(--board-width), calc(var(--board-width) / var(--ratio)));
   --pad: max(20px, calc(var(--u) * 0.085));
   --gap-block: max(14px, calc(var(--u) * 0.032));

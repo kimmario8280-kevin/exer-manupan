@@ -59,6 +59,7 @@
 | M6 | server 통합 | T-06-01 ~ 07 | `[x]` |
 | M7 | 클라이언트 조립과 화면 | T-07-01 ~ 07 | `[x]` |
 | M8 | 디자인 적용 (기기별 PNG 배경·프레임) | T-08-01 ~ 04 | `[x]` |
+| M9 | 기기 선택 버튼 | T-09-01 ~ 03 | `[x]` |
 
 표의 상태는 참고용이다. **기준은 각 마일스톤 제목 앞의 표기**이고, 상태를 바꿀 때 표도 같이 고친다.
 
@@ -382,6 +383,34 @@ workbook은 테스트 안에서 `XLSX.utils.book_new()` + `aoa_to_sheet`로 만�
 - T-08-05 SETUP 화면 조립
   - 수행: `index.html`에 배경·프레임 레이어, `client.js`에서 `deviceFor`·`assetUrls`로 `data-device`와 CSS 변수 설정(리사이즈 시 갱신), `board-grid.css`에 아트보드 contain 레이아웃, 테마 색은 에셋에서 샘플링한 값으로 교체
   - 확인: 브라우저 눈 확인은 사용자 몫
+
+---
+
+## [x] M9 기기 선택 버튼
+
+웹 페이지 상단에 기기 버튼(사이니지 세로, 태블릿 가로, 태블릿 세로, 모바일)을 가로로 두고, 클릭하면 그 기기의 아트보드 크기·비율로 메뉴판이 바뀐다. 선택하지 않으면 지금처럼 창 크기로 자동 판별한다.
+
+파일: `public/design.js`, `public/render.js`, `test/design.test.mjs`, `test/render.test.mjs`
+결정:
+- 한 번 버튼을 누르면 창 크기가 바뀌어도 그 기기를 유지한다. 처음에는 자동 판별한 기기가 눌린 상태로 보인다.
+- 버튼 줄은 보드 밖 상단에 두고, 보드는 남은 높이 안에 `contain`으로 놓는다.
+- 버튼은 중성 회색 1px 테두리, 눌린 상태만 액센트색 테두리로 구분한다. (anti-ai-slop)
+
+- T-09-01 shouldListDeviceButtonsInOrder (F5-2)
+  - Red: `DEVICE_LABELS`의 키 순서가 signage, tablet-land, tablet-port, mobile이고 값이 `사이니지 (세로)`, `태블릿 (가로)`, `태블릿 (세로)`, `모바일`
+  - Green: 상수 객체
+  - Refactor: freeze
+- T-09-02 shouldPreferSelectedDeviceOverViewport (F5-2)
+  - Red: `resolveDevice('mobile', 1920, 1080) === 'mobile'`, `resolveDevice(null, 1920, 1080) === 'tablet-land'`, `resolveDevice(undefined, 390, 844) === 'mobile'`, 알 수 없는 값(`'bogus'`)은 창 크기로 판별
+  - Green: 선택값이 `DEVICES`에 있으면 그것, 아니면 `deviceFor`
+  - Refactor: 이름·주석 정리
+- T-09-03 shouldRenderDeviceButtonsWithActiveOne (F5-2)
+  - Red: `renderDeviceButtons('tablet-land')`가 `data-device` 버튼 4개를 순서대로 만들고, `aria-pressed="true"`는 tablet-land 하나, 나머지는 `"false"`, 라벨 4개가 텍스트로 있다. 활성값이 `null`이면 `true`가 없다
+  - Green: 템플릿 문자열
+  - Refactor: 클래스명 상수화
+- T-09-04 SETUP 화면 조립
+  - 수행: `index.html`에 버튼 줄, `client.js`에서 클릭 시 선택 기기를 저장하고 다시 그리기, `board-grid.css`에 버튼 줄 스타일과 높이 보정
+  - 확인: headless Edge로 버튼 클릭 후 4가지 크기를 스크린샷 확인
 
 ---
 

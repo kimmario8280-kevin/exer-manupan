@@ -1,3 +1,5 @@
+import { DEVICE_LABELS } from './design.js';
+
 const PRICE_LOCALE = 'ko-KR';
 const CURRENCY_SUFFIX = '원';
 const SOLD_OUT_LABEL = '품절';
@@ -8,6 +10,8 @@ const CSS = Object.freeze({
   categoryTitle: 'category-title',
   tab: 'tab',
   tabActive: 'active',
+  deviceButton: 'device-button',
+  deviceButtonActive: 'active',
 });
 
 function escapeHtml(text) {
@@ -74,4 +78,15 @@ export function renderTabs(pages, activeName) {
 export function resolveActivePage(pages, activeName) {
   if (pages.some((page) => page.name === activeName)) return activeName;
   return pages[0]?.name ?? null;
+}
+
+function renderDeviceButton(device, label, active) {
+  const className = active ? `${CSS.deviceButton} ${CSS.deviceButtonActive}` : CSS.deviceButton;
+  return `<button type="button" class="${className}" data-device="${device}" aria-pressed="${active}">${label}</button>`;
+}
+
+export function renderDeviceButtons(activeDevice) {
+  return Object.entries(DEVICE_LABELS)
+    .map(([device, label]) => renderDeviceButton(device, label, device === activeDevice))
+    .join('');
 }

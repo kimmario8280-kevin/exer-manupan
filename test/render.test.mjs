@@ -4,6 +4,7 @@ import {
   formatPrice,
   renderItem,
   renderItems,
+  renderDeviceButtons,
   renderTabs,
   resolveActivePage,
 } from '../public/render.js';
@@ -111,4 +112,23 @@ test('shouldFallbackToFirstTabWhenActivePageRemoved', () => {
   assert.equal(resolveActivePage(pages, '음료'), '커피');
   assert.equal(resolveActivePage(pages, undefined), '커피');
   assert.equal(resolveActivePage([], '커피'), null);
+});
+
+test('shouldRenderDeviceButtonsWithActiveOne', () => {
+  const html = renderDeviceButtons('tablet-land');
+  const tags = html.match(/<button[^>]*data-device="[^"]+"[^>]*>/g);
+  assert.equal(tags.length, 4);
+  assert.deepEqual(
+    tags.map((tag) => tag.match(/data-device="([^"]+)"/)[1]),
+    ['signage', 'tablet-land', 'tablet-port', 'mobile'],
+  );
+  const pressed = tags.filter((tag) => tag.includes('aria-pressed="true"'));
+  assert.equal(pressed.length, 1);
+  assert.match(pressed[0], /data-device="tablet-land"/);
+  assert.equal(html.match(/aria-pressed="false"/g).length, 3);
+  for (const label of ['사이니지 (세로)', '태블릿 (가로)', '태블릿 (세로)', '모바일']) {
+    assert.ok(html.includes(`>${label}<`), `${label} 라벨`);
+  }
+  // 활성값이 없으면 눌린 버튼도 없다
+  assert.equal(renderDeviceButtons(null).includes('aria-pressed="true"'), false);
 });

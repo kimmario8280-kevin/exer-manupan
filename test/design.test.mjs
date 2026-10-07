@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { DEVICES, deviceFor, assetUrls } from '../public/design.js';
+import { DEVICES, DEVICE_LABELS, deviceFor, assetUrls, resolveDevice } from '../public/design.js';
 
 const PUBLIC_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
 
@@ -58,4 +58,17 @@ test('shouldHaveAssetFilesForEveryThemeAndDevice', () => {
     }
   }
   assert.deepEqual(missing, []);
+});
+
+test('shouldListDeviceButtonsInOrder', () => {
+  assert.deepEqual(Object.keys(DEVICE_LABELS), ['signage', 'tablet-land', 'tablet-port', 'mobile']);
+  assert.deepEqual(Object.values(DEVICE_LABELS), ['사이니지 (세로)', '태블릿 (가로)', '태블릿 (세로)', '모바일']);
+});
+
+test('shouldPreferSelectedDeviceOverViewport', () => {
+  assert.equal(resolveDevice('mobile', 1920, 1080), 'mobile');
+  assert.equal(resolveDevice(null, 1920, 1080), 'tablet-land');
+  assert.equal(resolveDevice(undefined, 390, 844), 'mobile');
+  // 알 수 없는 값은 선택하지 않은 것으로 보고 창 크기로 판별한다
+  assert.equal(resolveDevice('bogus', 1080, 1920), 'signage');
 });
