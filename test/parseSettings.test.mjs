@@ -9,6 +9,8 @@ test('shouldReturnDefaultsWhenSettingsMissing', () => {
     storeName: '메뉴판',
     theme: 'cafe-dark',
     autoRotateSec: 0,
+    device: null,
+    tagline: '',
   });
 });
 
@@ -50,4 +52,19 @@ test('shouldFallbackAutoRotateWhenNotNumber', () => {
     const settings = parseSettings([row('자동전환초', value)]);
     assert.equal(settings.autoRotateSec, 0, `값 ${JSON.stringify(value)}`);
   }
+});
+
+test('shouldReadKnownDevice', () => {
+  assert.equal(parseSettings([row('디바이스', 'tablet-land')]).device, 'tablet-land');
+});
+
+test('shouldFallbackDeviceToNullWhenUnknownOrBlank', () => {
+  for (const raw of ['tv', '', undefined, 'toString']) {
+    assert.equal(parseSettings([row('디바이스', raw)]).device, null, JSON.stringify(raw));
+  }
+});
+
+test('shouldReadTaglineTrimmedAndEmptyWhenBlank', () => {
+  assert.equal(parseSettings([row('영문태그', '  SPECIALTY COFFEE ')]).tagline, 'SPECIALTY COFFEE');
+  assert.equal(parseSettings([row('영문태그', undefined)]).tagline, '');
 });

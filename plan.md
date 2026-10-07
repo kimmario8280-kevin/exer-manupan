@@ -118,6 +118,16 @@ M7의 CSS 유동 레이아웃은 `design/project/`의 PNG 배경·프레임을 �
 - [x] shouldRenderDeviceButtonsWithActiveOne (F5-2)
 - [x] 화면 조립: 상단 기기 버튼 줄, 클릭 시 크기 변경, headless 스크린샷 확인
 
+## 10. 어드민 (`/admin`, `src/{adminAuth,validateSettings,updateSettings}.mjs`, `public/preview.js`)
+
+- [x] parseSettings: 디바이스·영문태그 읽기 (3개)
+- [x] shouldAuthorizeCorrectBasicCredentials 외 2개 (adminAuth)
+- [x] shouldAcceptValidSettingsAndTrimText 외 3개 (validateSettings)
+- [x] shouldWriteAllKnownSettingsIntoSettingsSheet 외 3개 (updateSettings)
+- [x] shouldKeepSettingsWhenNoPreviewQuery 외 3개 (preview)
+- [x] 서버: 로그인 401, 어드민 페이지, 설정 조회, 저장 → Excel 반영 → SSE, 잘못된 값 400, 미로그인 저장 401 (6개)
+- [x] 화면 조립: `/`는 보드만 출력(기기 버튼 줄 제거, Excel 설정 적용), `/admin` 테마·디바이스·텍스트 편집과 미리보기
+
 ## 완료 기준
 
 - 위 항목이 모두 체크되었다.

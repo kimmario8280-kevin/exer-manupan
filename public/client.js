@@ -1,11 +1,12 @@
 import { DEVICES, assetUrls, resolveDevice } from './design.js';
-import { renderDeviceButtons, renderItems, renderTabs, resolveActivePage } from './render.js';
+import { applyPreview } from './preview.js';
+import { renderItems, renderTabs, resolveActivePage } from './render.js';
 import { nextPageName, rotationIntervalMs } from './rotation.js';
 
-const deviceBarEl = document.getElementById('device-bar');
 const boardEl = document.getElementById('board');
 const bgLayerEl = document.getElementById('layer-bg');
 const frameLayerEl = document.getElementById('layer-frame');
+const taglineEl = document.getElementById('tagline');
 const storeNameEl = document.getElementById('store-name');
 const themeEl = document.getElementById('theme');
 const tabsEl = document.getElementById('tabs');
@@ -14,13 +15,11 @@ const emptyEl = document.getElementById('empty');
 
 let menu = { settings: {}, pages: [] };
 let activePage = null;
-let selectedDevice = null; // 버튼으로 고른 기기. null이면 창 크기로 자동 판별한다.
 let rotationTimer = null;
 
-// 고른 기기(없으면 창 크기로 판별한 기기)의 아트보드 비율과 배경·프레임 PNG를 적용한다.
-function drawBoard(theme) {
-  const device = resolveDevice(selectedDevice, window.innerWidth, window.innerHeight);
-  deviceBarEl.innerHTML = renderDeviceButtons(device);
+// 어드민이 정한 기기(없으면 창 크기로 판별한 기기)의 아트보드 비율과 배경·프레임 PNG를 적용한다.
+function drawBoard({ theme, device: configured }) {
+  const device = resolveDevice(configured, window.innerWidth, window.innerHeight);
   const { width, height } = DEVICES[device];
   const { bg, frame } = assetUrls(theme, device);
   boardEl.dataset.device = device;
@@ -30,11 +29,14 @@ function drawBoard(theme) {
   frameLayerEl.style.backgroundImage = `url("${frame}")`;
 }
 
-function drawHeader({ storeName, theme }) {
+function drawHeader(settings) {
+  const { storeName, theme, tagline } = settings;
   document.title = storeName;
   storeNameEl.textContent = storeName;
+  taglineEl.textContent = tagline;
+  taglineEl.hidden = !tagline;
   themeEl.href = `templates/${theme}.css`;
-  drawBoard(theme);
+  drawBoard(settings);
 }
 
 function drawPages(pages) {
@@ -65,6 +67,7 @@ async function loadMenu() {
   try {
     const response = await fetch('/api/menu');
     menu = await response.json();
+    menu.settings = applyPreview(menu.settings, window.location.search);
   } catch (error) {
     console.error('메뉴를 불러오지 못했습니다.', error);
     return;
@@ -81,15 +84,8 @@ tabsEl.addEventListener('click', (event) => {
   restartRotation();
 });
 
-deviceBarEl.addEventListener('click', (event) => {
-  const button = event.target.closest('[data-device]');
-  if (!button) return;
-  selectedDevice = button.dataset.device;
-  drawBoard(menu.settings.theme);
-});
-
 window.addEventListener('resize', () => {
-  if (menu.settings.theme) drawBoard(menu.settings.theme);
+  if (menu.settings.theme) drawBoard(menu.settings);
 });
 
 // EventSource는 연결이 끊기면 브라우저가 자동으로 다시 연결한다.

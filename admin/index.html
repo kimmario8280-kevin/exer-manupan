@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>메뉴판 어드민</title>
+  <link rel="stylesheet" href="admin.css">
+  <script type="module" src="admin.js"></script>
+</head>
+<body>
+  <main class="admin">
+    <header class="admin-header">
+      <p class="eyebrow">Excel-Driven Menu Board</p>
+      <h1>메뉴판 설정</h1>
+      <p class="lead">저장하면 Excel의 <code>_설정</code> 시트에 반영되고, 메뉴판 화면(<a href="/" target="_blank" rel="noopener">/</a>)이 바로 바뀝니다.</p>
+    </header>
+
+    <form id="form" class="controls" autocomplete="off">
+      <section class="group">
+        <h2>테마</h2>
+        <div id="theme-buttons" class="button-row" role="group" aria-label="테마"></div>
+      </section>
+
+      <section class="group">
+        <h2>디바이스</h2>
+        <div id="device-buttons" class="button-row" role="group" aria-label="디바이스"></div>
+      </section>
+
+      <section class="group fields">
+        <label>매장명
+          <input id="store-name" name="storeName" type="text" required>
+        </label>
+        <label>영문 태그
+          <input id="tagline" name="tagline" type="text">
+        </label>
+        <label>자동 전환 (초, 0이면 끔)
+          <input id="auto-rotate" name="autoRotateSec" type="number" min="0" step="1" inputmode="numeric">
+        </label>
+      </section>
+
+      <div class="actions">
+        <button id="save" type="submit" class="primary">Excel에 저장</button>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+
+    <section class="preview">
+      <div id="preview-frame" class="preview-frame">
+        <iframe id="preview" title="메뉴판 미리보기"></iframe>
+      </div>
+      <p id="preview-caption" class="caption"></p>
+    </section>
+  </main>
+</body>
+</html>

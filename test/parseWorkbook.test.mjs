@@ -144,6 +144,8 @@ test('shouldReturnSettingsFromSettingsSheet', () => {
   assert.deepEqual(parseWorkbook(workbook).settings, {
     storeName: '빌런 커피',
     theme: 'bistro-light',
+    device: null,
+    tagline: '',
     autoRotateSec: 5,
   });
 });
@@ -153,6 +155,8 @@ test('shouldReturnDefaultSettingsWhenNoSettingsSheet', () => {
   assert.deepEqual(settings, {
     storeName: '메뉴판',
     theme: 'cafe-dark',
+    device: null,
+    tagline: '',
     autoRotateSec: 0,
   });
 });

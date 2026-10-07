@@ -142,6 +142,8 @@ test('shouldStartWithEmptyPagesWhenFileMissingAtBoot', async (t) => {
     storeName: '메뉴판',
     theme: 'cafe-dark',
     autoRotateSec: 0,
+    device: null,
+    tagline: '',
   });
 });
 
@@ -151,4 +153,89 @@ test('shouldReadPortFromEnv', () => {
   assert.equal(resolvePort({ PORT: 'abc' }), 3000);
   assert.equal(resolvePort({ PORT: '' }), 3000);
   assert.equal(resolvePort({ PORT: '-1' }), 3000);
+});
+
+// ---- 어드민 (M10) ----
+const ADMIN_AUTH = `Basic ${Buffer.from('admin:1234').toString('base64')}`;
+const adminHeaders = { Authorization: ADMIN_AUTH, 'Content-Type': 'application/json' };
+const NEW_SETTINGS = {
+  storeName: '어드민 카페',
+  theme: 'bistro-light',
+  device: 'tablet-land',
+  tagline: 'ROASTERY',
+  autoRotateSec: 20,
+};
+const putSettings = (app, body) =>
+  fetch(`${app.url}/api/admin/settings`, { method: 'PUT', headers: adminHeaders, body: JSON.stringify(body) });
+
+test('shouldRequireLoginForAdminPageAndApi', async (t) => {
+  const { file } = makeFixture(t);
+  const app = await startServer(t, { file });
+
+  for (const path of ['/admin/', '/admin/admin.js', '/api/admin/settings']) {
+    const response = await fetch(`${app.url}${path}`);
+    assert.equal(response.status, 401, path);
+    assert.match(response.headers.get('www-authenticate'), /Basic/);
+  }
+  const wrong = await fetch(`${app.url}/admin/`, {
+    headers: { Authorization: `Basic ${Buffer.from('admin:bad').toString('base64')}` },
+  });
+  assert.equal(wrong.status, 401);
+});
+
+test('shouldServeAdminPageAfterLogin', async (t) => {
+  const { file } = makeFixture(t);
+  const app = await startServer(t, { file });
+
+  const response = await fetch(`${app.url}/admin/`, { headers: { Authorization: ADMIN_AUTH } });
+  assert.equal(response.status, 200);
+  assert.match(await response.text(), /<html/);
+});
+
+test('shouldReturnCurrentSettingsAndChoicesToAdmin', async (t) => {
+  const { file } = makeFixture(t);
+  const app = await startServer(t, { file });
+
+  const body = await (await fetch(`${app.url}/api/admin/settings`, { headers: { Authorization: ADMIN_AUTH } })).json();
+  assert.equal(body.settings.storeName, '빌런 커피');
+  assert.deepEqual(body.themes, ['cafe-dark', 'bistro-light']);
+  assert.deepEqual(body.devices, ['signage', 'tablet-land', 'tablet-port', 'mobile']);
+});
+
+test('shouldWriteSettingsToExcelAndPushSseWhenAdminSaves', async (t) => {
+  const { file } = makeFixture(t);
+  const app = await startServer(t, { file });
+  const stream = await openEventStream(t, app);
+  await stream.readUntil(': connected');
+
+  const response = await putSettings(app, NEW_SETTINGS);
+  assert.equal(response.status, 200);
+
+  assert.ok(await stream.readUntil('event: menu-updated'));
+  const menu = await getMenu(app);
+  assert.deepEqual(menu.settings, NEW_SETTINGS);
+  assert.equal(menu.pages[0].items[0].name, '아메리카노');
+});
+
+test('shouldRejectInvalidSettingsWithoutTouchingExcel', async (t) => {
+  const { file } = makeFixture(t);
+  const app = await startServer(t, { file });
+
+  const response = await putSettings(app, { ...NEW_SETTINGS, theme: 'neon' });
+  assert.equal(response.status, 400);
+  assert.ok((await response.json()).errors.length > 0);
+  assert.equal((await getMenu(app)).settings.storeName, '빌런 커피');
+});
+
+test('shouldRejectSettingsSaveWithoutLogin', async (t) => {
+  const { file } = makeFixture(t);
+  const app = await startServer(t, { file });
+
+  const response = await fetch(`${app.url}/api/admin/settings`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(NEW_SETTINGS),
+  });
+  assert.equal(response.status, 401);
+  assert.equal((await getMenu(app)).settings.storeName, '빌런 커피');
 });

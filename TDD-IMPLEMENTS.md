@@ -419,3 +419,13 @@ workbook은 테스트 안에서 `XLSX.utils.book_new()` + `aoa_to_sheet`로 만�
 - 모든 마일스톤이 `[x]`다.
 - `npm test`가 전체 통과한다.
 - 행위 변경과 구조 변경 커밋이 분리되어 있다.
+
+---
+
+## [x] M10 어드민
+
+`/`는 Excel 설정(테마·디바이스·매장명·영문태그)을 적용한 전체 크기 메뉴판만 보여 주고, `/admin`(Basic 인증 admin/1234)에서 설정을 편집해 Excel `_설정` 시트에 저장한다. 저장하면 파일 감시와 SSE로 메뉴판이 갱신된다.
+
+- Red: 신규 테스트 28개와 기존 기대값 갱신(설정 객체에 `device`, `tagline` 추가). 전부 실패 확인.
+- Green: `parseSettings` 확장, `adminAuth`, `validateSettings`, `updateSettings`, `preview`, 서버 라우트, 화면.
+- Refactor: 이번 사이클에서는 하지 않았다. (남은 정리: `ALLOWED_THEMES`와 `THEME_LABELS` 이중 정의)
