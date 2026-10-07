@@ -74,10 +74,10 @@ workbook은 테스트 안에서 `XLSX.utils.aoa_to_sheet`로 만든다. 실제 `
 
 가짜 응답 객체(`write`, `on('close')`)로 검증한다.
 
-- [ ] shouldSendConnectedCommentOnRegister (TRD 4장)
-- [ ] shouldBroadcastMenuUpdatedEventToAllClients (F4-2)
-- [ ] shouldRemoveClientOnClose (F4-6)
-- [ ] shouldNotThrowWhenBroadcastWithoutClients
+- [x] shouldSendConnectedCommentOnRegister (TRD 4장)
+- [x] shouldBroadcastMenuUpdatedEventToAllClients (F4-2)
+- [x] shouldRemoveClientOnClose (F4-6)
+- [x] shouldNotThrowWhenBroadcastWithoutClients
 
 ## 6. server 통합 (`server.mjs`, `test/server.test.mjs`)
 

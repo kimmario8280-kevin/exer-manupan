@@ -55,7 +55,7 @@
 | M2 | parseWorkbook | T-02-01 ~ 16 | `[x]` |
 | M3 | render | T-03-01 ~ 10 | `[x]` |
 | M4 | watcher 디바운스 | T-04-01 ~ 05 | `[x]` |
-| M5 | sseHub | T-05-01 ~ 04 | `[ ]` |
+| M5 | sseHub | T-05-01 ~ 04 | `[x]` |
 | M6 | server 통합 | T-06-01 ~ 07 | `[ ]` |
 | M7 | 클라이언트 조립과 화면 | T-07-01 ~ 07 | `[ ]` |
 
@@ -263,7 +263,7 @@ workbook은 테스트 안에서 `XLSX.utils.book_new()` + `aoa_to_sheet`로 만�
 
 ---
 
-## [ ] M5 sseHub
+## [x] M5 sseHub
 
 파일: `src/sseHub.mjs`, `test/sseHub.test.mjs`
 가짜 응답 객체(`write`, `writeHead`, `on`)로 검증한다.
