@@ -64,11 +64,11 @@ workbook은 테스트 안에서 `XLSX.utils.aoa_to_sheet`로 만든다. 실제 `
 
 `mock.timers`를 쓴다. 실제 대기 금지.
 
-- [ ] shouldCallbackOnceAfter300msOfSilence (F4-1)
-- [ ] shouldMergeBurstOfEventsIntoOneCallback (F4-1)
-- [ ] shouldRestartTimerWhenEventArrivesBeforeDelay (F4-1)
-- [ ] shouldTreatAddChangeUnlinkEventsAsSamePath (TRD 5장)
-- [ ] shouldWatchOnlyTargetFile (TRD 10장): `~$menu.xlsx` 등 다른 파일 무시
+- [x] shouldCallbackOnceAfter300msOfSilence (F4-1)
+- [x] shouldMergeBurstOfEventsIntoOneCallback (F4-1)
+- [x] shouldRestartTimerWhenEventArrivesBeforeDelay (F4-1)
+- [x] shouldTreatAddChangeUnlinkEventsAsSamePath (TRD 5장)
+- [x] shouldWatchOnlyTargetFile (TRD 10장): `~$menu.xlsx` 등 다른 파일 무시
 
 ## 5. sseHub (`src/sseHub.mjs`, `test/sseHub.test.mjs`)
 

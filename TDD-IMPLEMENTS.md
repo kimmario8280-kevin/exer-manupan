@@ -54,7 +54,7 @@
 | M1 | parseSettings | T-01-01 ~ 08 | `[x]` |
 | M2 | parseWorkbook | T-02-01 ~ 16 | `[x]` |
 | M3 | render | T-03-01 ~ 10 | `[x]` |
-| M4 | watcher 디바운스 | T-04-01 ~ 05 | `[ ]` |
+| M4 | watcher 디바운스 | T-04-01 ~ 05 | `[x]` |
 | M5 | sseHub | T-05-01 ~ 04 | `[ ]` |
 | M6 | server 통합 | T-06-01 ~ 07 | `[ ]` |
 | M7 | 클라이언트 조립과 화면 | T-07-01 ~ 07 | `[ ]` |
@@ -235,7 +235,7 @@ workbook은 테스트 안에서 `XLSX.utils.book_new()` + `aoa_to_sheet`로 만�
 
 ---
 
-## [ ] M4 watcher 디바운스
+## [x] M4 watcher 디바운스
 
 파일: `src/watcher.mjs`, `test/watcher.test.mjs`
 `node:test`의 `mock.timers`를 사용한다. 실제 대기 금지. 파일 시스템 감시자(chokidar)는 주입한다.
