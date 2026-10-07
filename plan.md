@@ -28,22 +28,22 @@
 
 workbook은 테스트 안에서 `XLSX.utils.aoa_to_sheet`로 만든다. 실제 `data/menu.xlsx`를 읽지 않는다.
 
-- [ ] shouldConvertOneSheetToOnePage (F1-1): 시트 이름 = 페이지 이름
-- [ ] shouldKeepSheetOrderAsPageOrder (F1-4)
-- [ ] shouldIgnoreSheetsStartingWithUnderscore (F1-1)
-- [ ] shouldAddPageWhenSheetAdded (F1-3)
-- [ ] shouldMapRowToItemFields (F1-2): 메뉴명·가격·설명·품절·카테고리 → name·price·description·soldOut·category
-- [ ] shouldParsePriceAsNumber (F2-1)
-- [ ] shouldMarkSoldOutWhenY (F2-2): `Y`, `y`, ` Y ` 모두 true
-- [ ] shouldNotMarkSoldOutWhenBlank (F2-2)
-- [ ] shouldSetCategoryNullWhenBlank (F2-3)
-- [ ] shouldSetDescriptionEmptyWhenBlank
-- [ ] shouldSkipRowWhenNameBlank (F2-4)
-- [ ] shouldSkipRowWhenPriceNotNumeric (F2-5)
-- [ ] shouldLogSheetAndRowNumberWhenSkippingPrice (F2-5): 로거를 인자로 주입해 검증
-- [ ] shouldReturnSettingsFromSettingsSheet (F3): `_설정` 시트를 parseSettings에 위임
-- [ ] shouldReturnDefaultSettingsWhenNoSettingsSheet (F3-4)
-- [ ] shouldReturnEmptyPagesForWorkbookWithoutMenuSheets
+- [x] shouldConvertOneSheetToOnePage (F1-1): 시트 이름 = 페이지 이름
+- [x] shouldKeepSheetOrderAsPageOrder (F1-4)
+- [x] shouldIgnoreSheetsStartingWithUnderscore (F1-1)
+- [x] shouldAddPageWhenSheetAdded (F1-3)
+- [x] shouldMapRowToItemFields (F1-2): 메뉴명·가격·설명·품절·카테고리 → name·price·description·soldOut·category
+- [x] shouldParsePriceAsNumber (F2-1)
+- [x] shouldMarkSoldOutWhenY (F2-2): `Y`, `y`, ` Y ` 모두 true
+- [x] shouldNotMarkSoldOutWhenBlank (F2-2)
+- [x] shouldSetCategoryNullWhenBlank (F2-3)
+- [x] shouldSetDescriptionEmptyWhenBlank
+- [x] shouldSkipRowWhenNameBlank (F2-4)
+- [x] shouldSkipRowWhenPriceNotNumeric (F2-5)
+- [x] shouldLogSheetAndRowNumberWhenSkippingPrice (F2-5): 로거를 인자로 주입해 검증
+- [x] shouldReturnSettingsFromSettingsSheet (F3): `_설정` 시트를 parseSettings에 위임
+- [x] shouldReturnDefaultSettingsWhenNoSettingsSheet (F3-4)
+- [x] shouldReturnEmptyPagesForWorkbookWithoutMenuSheets
 
 ## 3. render (`public/render.js`, `test/render.test.mjs`)
 

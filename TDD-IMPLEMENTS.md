@@ -52,7 +52,7 @@
 |---|---|---|---|
 | M0 | 프로젝트 셋업 | SETUP 2 | `[x]` |
 | M1 | parseSettings | T-01-01 ~ 08 | `[x]` |
-| M2 | parseWorkbook | T-02-01 ~ 16 | `[ ]` |
+| M2 | parseWorkbook | T-02-01 ~ 16 | `[x]` |
 | M3 | render | T-03-01 ~ 10 | `[ ]` |
 | M4 | watcher 디바운스 | T-04-01 ~ 05 | `[ ]` |
 | M5 | sseHub | T-05-01 ~ 04 | `[ ]` |
@@ -114,7 +114,7 @@ M1 Refactor 단계에서 `test/smoke.test.mjs`를 삭제한다. (실제 테스�
 
 ---
 
-## [ ] M2 parseWorkbook
+## [x] M2 parseWorkbook
 
 파일: `src/parseWorkbook.mjs`, `test/parseWorkbook.test.mjs`
 workbook은 테스트 안에서 `XLSX.utils.book_new()` + `aoa_to_sheet`로 만든다. `data/menu.xlsx`를 읽지 않는다.
