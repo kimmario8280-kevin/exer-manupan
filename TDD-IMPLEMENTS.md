@@ -53,7 +53,7 @@
 | M0 | 프로젝트 셋업 | SETUP 2 | `[x]` |
 | M1 | parseSettings | T-01-01 ~ 08 | `[x]` |
 | M2 | parseWorkbook | T-02-01 ~ 16 | `[x]` |
-| M3 | render | T-03-01 ~ 10 | `[ ]` |
+| M3 | render | T-03-01 ~ 10 | `[x]` |
 | M4 | watcher 디바운스 | T-04-01 ~ 05 | `[ ]` |
 | M5 | sseHub | T-05-01 ~ 04 | `[ ]` |
 | M6 | server 통합 | T-06-01 ~ 07 | `[ ]` |
@@ -187,7 +187,7 @@ workbook은 테스트 안에서 `XLSX.utils.book_new()` + `aoa_to_sheet`로 만�
 
 ---
 
-## [ ] M3 render
+## [x] M3 render
 
 파일: `public/render.js`, `test/render.test.mjs`
 브라우저와 Node 양쪽에서 import 가능한 순수 ES 모듈이다. DOM에 의존하지 않는다. 출력은 HTML 문자열.

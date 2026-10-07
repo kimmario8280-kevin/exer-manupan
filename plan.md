@@ -49,16 +49,16 @@ workbook은 테스트 안에서 `XLSX.utils.aoa_to_sheet`로 만든다. 실제 `
 
 순수 함수. DOM 없이 데이터 → HTML 문자열 또는 단순 구조체로 검증한다.
 
-- [ ] shouldFormatPriceWithThousandsSeparatorAndWon (F2-1): `4500` → `4,500원`
-- [ ] shouldRenderItemNameAndDescription
-- [ ] shouldMarkSoldOutItemWithClassAndLabel (F2-2): 품절 라벨 포함
-- [ ] shouldNotMarkAvailableItemAsSoldOut (F2-2)
-- [ ] shouldGroupItemsByCategory (F2-3): 카테고리 소제목, 입력 순서 유지
-- [ ] shouldRenderWithoutGroupWhenNoCategory (F2-3)
-- [ ] shouldEscapeHtmlInItemText: `<script>` 같은 값이 이스케이프된다 (TRD 6장)
-- [ ] shouldRenderTabsFromPages (F5-1)
-- [ ] shouldKeepActiveTabWhenPageStillExists (F4-4)
-- [ ] shouldFallbackToFirstTabWhenActivePageRemoved (F4-4)
+- [x] shouldFormatPriceWithThousandsSeparatorAndWon (F2-1): `4500` → `4,500원`
+- [x] shouldRenderItemNameAndDescription
+- [x] shouldMarkSoldOutItemWithClassAndLabel (F2-2): 품절 라벨 포함
+- [x] shouldNotMarkAvailableItemAsSoldOut (F2-2)
+- [x] shouldGroupItemsByCategory (F2-3): 카테고리 소제목, 입력 순서 유지
+- [x] shouldRenderWithoutGroupWhenNoCategory (F2-3)
+- [x] shouldEscapeHtmlInItemText: `<script>` 같은 값이 이스케이프된다 (TRD 6장)
+- [x] shouldRenderTabsFromPages (F5-1)
+- [x] shouldKeepActiveTabWhenPageStillExists (F4-4)
+- [x] shouldFallbackToFirstTabWhenActivePageRemoved (F4-4)
 
 ## 4. watcher 디바운스 (`src/watcher.mjs`, `test/watcher.test.mjs`)
 
