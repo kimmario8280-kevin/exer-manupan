@@ -1,8 +1,8 @@
-/* 테마 2: 밝은 비스트로. 액센트는 브릭레드 한 색. */
+/* 테마 2: 밝은 비스트로. 색은 에셋(public/assets/bistro-light)에서 샘플링한 값이다. 액센트는 프레임의 벽돌색 한 색. */
 :root {
-  --bg: #f6f3ee;
-  --fg: #2a2622;
-  --muted: #6b645a;
-  --border: #d8d2c7;
-  --accent: #a8372c;
+  --bg: #d8d1c1;
+  --fg: #2e2a22;
+  --muted: #5a5346;
+  --border: #b3ab98;
+  --accent: #ab3f2d;
 }

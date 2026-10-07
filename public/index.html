@@ -9,13 +9,19 @@
   <script type="module" src="client.js"></script>
 </head>
 <body>
-  <main class="board">
-    <header class="board-header">
-      <h1 id="store-name" class="store-name"></h1>
-    </header>
-    <nav id="tabs" class="tabs" role="tablist"></nav>
-    <section id="items" class="items"></section>
-    <p id="empty" class="empty" hidden>표시할 메뉴가 없습니다.</p>
-  </main>
+  <div class="stage">
+    <div id="board" class="board">
+      <div id="layer-bg" class="layer"></div>
+      <main class="content">
+        <header class="board-header">
+          <h1 id="store-name" class="store-name"></h1>
+        </header>
+        <nav id="tabs" class="tabs" role="tablist"></nav>
+        <section id="items" class="items"></section>
+        <p id="empty" class="empty" hidden>표시할 메뉴가 없습니다.</p>
+      </main>
+      <div id="layer-frame" class="layer"></div>
+    </div>
+  </div>
 </body>
 </html>

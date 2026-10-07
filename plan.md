@@ -97,9 +97,19 @@ workbook은 테스트 안에서 `XLSX.utils.aoa_to_sheet`로 만든다. 실제 `
 - [x] 사용자 텍스트를 `textContent`/이스케이프로만 삽입함을 render 테스트로 보장 (TRD 6장)
 - [x] 자동전환 타이머 로직을 순수 함수로 분리하고 테스트: shouldAdvanceToNextPageEveryNSeconds, shouldNotRotateWhenZero (F3-3)
 - [x] `board-grid.css` + `cafe-dark.css` + `bistro-light.css` 작성 (F3-2, F5)
-- [ ] 반응형 4종(모바일·태블릿 세로/가로·사이니지) 확인, `design/` 기준 (F5-2)
+- [x] 반응형 4종(모바일·태블릿 세로/가로·사이니지) 확인, `design/` 기준 (F5-2) (headless Edge 스크린샷으로 확인. 실제 기기는 사용자 몫)
 - [ ] 샘플 `data/menu.xlsx`로 실제 저장 → 2초 내 갱신 수동 확인 (PRD 6장)
 - [x] anti-ai-slop 자가 점검 6항목 통과
+
+## 8. 디자인 적용 (`public/design.js`, `test/design.test.mjs`)
+
+M7의 CSS 유동 레이아웃은 `design/project/`의 PNG 배경·프레임을 쓰지 않았다. 마일스톤 단위로 다시 진행한다.
+
+- [x] shouldPickDeviceFromViewportSize (F5-2)
+- [x] shouldDefineArtboardSizeForEachDevice (F5-2)
+- [x] shouldBuildBackgroundAndFrameUrls (F5-2)
+- [x] shouldHaveAssetFilesForEveryThemeAndDevice (F5-2)
+- [x] 화면 조립: 배경·프레임 레이어, 기기 판별, 아트보드 contain 레이아웃, 테마 색 교체
 
 ## 완료 기준
 

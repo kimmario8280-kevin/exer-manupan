@@ -58,6 +58,7 @@
 | M5 | sseHub | T-05-01 ~ 04 | `[x]` |
 | M6 | server 통합 | T-06-01 ~ 07 | `[x]` |
 | M7 | 클라이언트 조립과 화면 | T-07-01 ~ 07 | `[x]` |
+| M8 | 디자인 적용 (기기별 PNG 배경·프레임) | T-08-01 ~ 04 | `[x]` |
 
 표의 상태는 참고용이다. **기준은 각 마일스톤 제목 앞의 표기**이고, 상태를 바꿀 때 표도 같이 고친다.
 
@@ -343,12 +344,44 @@ workbook은 테스트 안에서 `XLSX.utils.book_new()` + `aoa_to_sheet`로 만�
 - T-07-04 SETUP 테마 CSS 3종
   - 수행: `public/templates/board-grid.css`(레이아웃, CSS 변수 참조만), `cafe-dark.css`, `bistro-light.css`(변수 값만 선언). 클라이언트가 `settings.theme`에 맞는 CSS를 로드
   - 규칙: `.claude/rules/anti-ai-slop.md` 준수. 폰트 선택 이유를 CSS 주석 한 줄로 남긴다
-- T-07-05 SETUP 반응형 4종 확인 (CSS 구현 완료, 브라우저 눈 확인은 사용자 몫)
+- T-07-05 SETUP 반응형 4종 확인 (M7은 유동 CSS만 구현. 디자인 PNG 적용과 화면 확인은 M8에서 처리)
   - 수행: `design/`의 모바일, 태블릿 세로/가로, 사이니지 기준으로 브레이크포인트 구현·확인
 - T-07-06 SETUP 샘플 `data/menu.xlsx` 수동 통합 확인 (서버·API·SSE는 자동 확인, 실제 Excel 저장 확인은 사용자 몫)
   - 수행: `npm start` → Excel에서 값 수정 후 저장 → 2초 이내 화면 갱신, 품절·테마·자동전환 동작 확인
 - T-07-07 SETUP anti-ai-slop 자가 점검
   - 수행: 규칙 문서의 6개 점검 항목에 모두 NO인지 확인
+
+---
+
+## [x] M8 디자인 적용 (기기별 PNG 배경·프레임)
+
+`design/project/`의 디자인을 적용한다. M7의 CSS 유동 레이아웃은 디자인의 PNG 배경·프레임을 쓰지 않아 디자인 미적용 상태였다. T-07-05는 `design/` 기준 구현으로 보기 어려워 M8에서 다시 다룬다.
+
+파일: `public/design.js`, `test/design.test.mjs`
+결정:
+- 에셋은 v1 테마 2종(`cafe-dark`, `bistro-light`)만 `public/assets/<테마>/`로 옮긴다. (8종 전체는 71.5MB라 제외)
+- 보드는 기기 아트보드 비율(`aspect-ratio`)을 유지한 채 화면에 맞춰 `contain`으로 놓는다. 프레임이 잘리지 않는다.
+- 품절 라벨은 디자인의 pill 대신 anti-ai-slop 규칙에 따라 2px 모서리 박스를 유지한다. 사진 슬롯(그라데이션 해치)은 만들지 않는다.
+
+- T-08-01 shouldPickDeviceFromViewportSize (F5-2)
+  - Red: `deviceFor(width, height)` — (390,844)→mobile, (844,390)→mobile, (1080,1920)→signage, (1440,1920)→tablet-port, (768,1024)→tablet-port, (1920,1080)→tablet-land, (1280,800)→tablet-land
+  - Green: 가로(w>h)이고 w≥900이면 tablet-land, w<600 또는 가로 소형이면 mobile, 세로는 w/h≤0.6이면 signage 아니면 tablet-port
+  - Refactor: 경계값을 상수로
+- T-08-02 shouldDefineArtboardSizeForEachDevice (F5-2)
+  - Red: `DEVICES`가 signage 1080×1920, tablet-land 1920×1440, tablet-port 1440×1920, mobile 1080×2160
+  - Green: 상수 객체
+  - Refactor: 불변(freeze)
+- T-08-03 shouldBuildBackgroundAndFrameUrls (F5-2)
+  - Red: `assetUrls('cafe-dark', 'signage')` → `{ bg: 'assets/cafe-dark/bg-signage.png', frame: 'assets/cafe-dark/frame-signage.png' }`
+  - Green: 템플릿 문자열
+  - Refactor: 경로 접두어 상수화
+- T-08-04 shouldHaveAssetFilesForEveryThemeAndDevice (F5-2)
+  - Red: 테마 `cafe-dark`, `bistro-light` × 기기 4종의 `assetUrls` 경로가 `public/` 아래에 실제 파일로 있고, `templates/<테마>.css`도 있다
+  - Green: 에셋 16개를 `design/project/assets`에서 `public/assets`로 복사 (SETUP)
+  - Refactor: `design.js` 전체 점검
+- T-08-05 SETUP 화면 조립
+  - 수행: `index.html`에 배경·프레임 레이어, `client.js`에서 `deviceFor`·`assetUrls`로 `data-device`와 CSS 변수 설정(리사이즈 시 갱신), `board-grid.css`에 아트보드 contain 레이아웃, 테마 색은 에셋에서 샘플링한 값으로 교체
+  - 확인: 브라우저 눈 확인은 사용자 몫
 
 ---
 

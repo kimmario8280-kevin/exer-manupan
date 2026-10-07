@@ -1,8 +1,8 @@
-/* 테마 1: 어두운 카페. 액센트는 앰버 한 색. */
+/* 테마 1: 어두운 카페. 색은 에셋(public/assets/cafe-dark)에서 샘플링한 값이다. 액센트는 프레임의 금색 한 색. */
 :root {
-  --bg: #1b1814;
-  --fg: #efe8dc;
-  --muted: #a39a8b;
-  --border: #3a352d;
-  --accent: #d9a441;
+  --bg: #2a1f14;
+  --fg: #f1e8d4;
+  --muted: #b9a98c;
+  --border: #5a4932;
+  --accent: #caa05a;
 }

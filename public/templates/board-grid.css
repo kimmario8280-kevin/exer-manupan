@@ -1,21 +1,16 @@
 /*
-  공통 레이아웃. 색·폰트 종류는 테마 파일의 CSS 변수(--bg, --fg, --muted, --border, --accent)만 참조한다.
+  공통 레이아웃. 색은 테마 파일의 CSS 변수(--bg, --fg, --muted, --border, --accent)만 참조한다.
   폰트: 매장명·소제목은 명조(Nanum Myeongjo)로 인쇄 메뉴판의 인상을, 메뉴명·가격은 고딕(Pretendard)으로 숫자 가독성을 맡긴다.
   외부 네트워크를 쓰지 않으므로 웹폰트를 내려받지 않고, 설치된 폰트가 없으면 한글 시스템 폰트로 대체된다.
-  크기 기준 --u는 화면의 짧은 변이다. 모바일·태블릿·사이니지 모두 같은 비율로 커진다.
+
+  보드: 기기 아트보드 비율(--ratio = 가로/세로)을 유지한 채 화면 안에 contain으로 놓는다.
+  배경·프레임 PNG는 아트보드와 같은 비율이라 늘어나거나 잘리지 않는다.
+  글자 크기 기준 --u는 보드의 짧은 변이다.
 */
 :root {
-  --u: min(100vw, 100vh);
+  --ratio: 0.5625;
   --font-serif: 'Nanum Myeongjo', 'Noto Serif KR', 'Batang', serif;
   --font-sans: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
-
-  --pad: clamp(20px, calc(var(--u) * 0.085), 120px);
-  --gap-block: clamp(14px, calc(var(--u) * 0.032), 48px);
-  --fs-store: clamp(30px, calc(var(--u) * 0.058), 96px);
-  --fs-tab: clamp(14px, calc(var(--u) * 0.026), 40px);
-  --fs-category: clamp(12px, calc(var(--u) * 0.0175), 28px);
-  --fs-item: clamp(16px, calc(var(--u) * 0.030), 48px);
-  --fs-desc: clamp(12px, calc(var(--u) * 0.0185), 30px);
 }
 
 * {
@@ -24,15 +19,47 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
 }
 
-.board {
+.stage {
+  display: grid;
+  place-items: center;
   min-height: 100vh;
+}
+
+.board {
+  --board-width: min(100vw, calc(100vh * var(--ratio)));
+  --u: min(var(--board-width), calc(var(--board-width) / var(--ratio)));
+  --pad: max(20px, calc(var(--u) * 0.085));
+  --gap-block: max(14px, calc(var(--u) * 0.032));
+  --fs-store: max(30px, calc(var(--u) * 0.058));
+  --fs-tab: max(14px, calc(var(--u) * 0.026));
+  --fs-category: max(12px, calc(var(--u) * 0.0175));
+  --fs-item: max(16px, calc(var(--u) * 0.030));
+  --fs-desc: max(12px, calc(var(--u) * 0.0185));
+
+  position: relative;
+  width: var(--board-width);
+  aspect-ratio: var(--ratio);
+  overflow: hidden;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.content {
+  position: absolute;
+  inset: 0;
   padding: var(--pad);
+  overflow-y: auto;
 }
 
 .store-name {
@@ -41,6 +68,15 @@ body {
   font-size: var(--fs-store);
   font-weight: 800;
   line-height: 1.1;
+}
+
+/* 매장명과 메뉴를 가르는 짧은 구분선 */
+.board-header::after {
+  content: '';
+  display: block;
+  width: calc(var(--u) * 0.11);
+  margin-top: calc(var(--u) * 0.03);
+  border-bottom: 2px solid var(--accent);
 }
 
 .tabs {
@@ -166,9 +202,7 @@ body {
 }
 
 /* 가로 태블릿: 두 열 */
-@media (orientation: landscape) and (min-width: 900px) {
-  .items {
-    column-count: 2;
-    column-gap: calc(var(--u) * 0.075);
-  }
+.board[data-device='tablet-land'] .items {
+  column-count: 2;
+  column-gap: calc(var(--u) * 0.075);
 }
